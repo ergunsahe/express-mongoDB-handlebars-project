@@ -1,4 +1,5 @@
 const express = require("express")
+const Post = require("../models/Post")
 
 const router = express.Router()
 router.get("/", (req, res) => {
@@ -12,8 +13,14 @@ router.get("/about", (req, res) => {
 
 
 router.get("/blog", (req, res) => {
+    Post.find({}).then(posts => {
+        res.render('site/blog', {posts})
+        console.log(posts)
+
+    }).catch(err =>{
+        console.log(err)
+    })
     
-    res.render('site/blog')
 })
 
 
