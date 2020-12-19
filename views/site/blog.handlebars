@@ -17,12 +17,12 @@
 						<div class="col-md-6">
 							<div class="blog">
 								<div class="blog-img">
-									<img src="img/blog1.jpg" class="img-fluid">
+									<img src="{{post_image}}" class="img-fluid">
 								</div>
 								<div class="blog-content">
 									<ul class="blog-meta">
 										<li><i class="fas fa-users"></i><span class="writer">John Doe</span></li>
-										<li><i class="fas fa-clock"></i><span class="writer"></span></li>
+										<li><i class="fas fa-clock"></i><span class="writer">{{generateDate date 'MMM DD YYYY'}}</span></li>
 										<li><i class="fas fa-comments"></i><span class="writer">13</span></li>
 									</ul>
 									<h3>{{title}}</h3>

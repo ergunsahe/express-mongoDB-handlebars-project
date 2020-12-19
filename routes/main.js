@@ -15,7 +15,7 @@ router.get("/about", (req, res) => {
 router.get("/blog", (req, res) => {
     Post.find({}).then(posts => {
         res.render('site/blog', {posts})
-        console.log(posts)
+        
 
     }).catch(err =>{
         console.log(err)
@@ -29,15 +29,9 @@ router.get("/contact", (req, res) => {
     res.render('site/contact')
 })
 
-router.get("/login", (req, res) => {
-    
-    res.render('site/login')
-})
 
-router.get("/register", (req, res) => {
-    
-    res.render('site/register')
-})
+
+
 
 
 module.exports = router

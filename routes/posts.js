@@ -3,6 +3,7 @@ const Post = require("../models/Post")
 const path = require("path")
 
 const router = express.Router()
+
 router.get("/", (req, res) => {
     res.render('site/index')
 })
@@ -26,7 +27,7 @@ router.post("/test", (req, res) => {
     post_image.mv(path.resolve(__dirname, '../public/img/postimages', post_image.name))
     Post.create({
         ...req.body,
-        post_image: `/public/img/postimages/${post_image.name}`
+        post_image: `/img/postimages/${post_image.name}`
     })
     
     res.redirect("/")
