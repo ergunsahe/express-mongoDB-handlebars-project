@@ -6,6 +6,7 @@ const port = 3000
 const hostname = "127.0.0.1"
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
+const fileUpload = require("express-fileupload")
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
@@ -16,6 +17,8 @@ mongoose.connect('mongodb://127.0.0.1/nodeblogDB', {
   useFindAndModify: false,
   useCreateIndex: true
 });
+
+app.use(fileUpload())
 
 app.use(express.static("public"))
 app.engine("handlebars", expressHandlebars({

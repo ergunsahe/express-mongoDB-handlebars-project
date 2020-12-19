@@ -15,6 +15,10 @@ const PostSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    post_image: {
+        type: String,
+        required: true
+    }
 
 })
 
