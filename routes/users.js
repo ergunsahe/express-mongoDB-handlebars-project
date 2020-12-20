@@ -13,7 +13,11 @@ router.post("/register", (req, res) => {
             res.status(400).json({errors: {message:"User already exist"}})
 
         }
-        res.redirect("/")
+        req.session.sessionFlash = {
+            type: "alert alert-danger",
+            message: "You are successfully registered"
+        }
+        res.redirect("/users/login")
     })
     
 })
@@ -38,6 +42,14 @@ router.post("/login", (req, res) => {
         }
     })
       
+})
+
+router.get("/logout", (req, res) => {
+    req.session.destroy(() =>{
+        res.redirect('/')
+
+    })
+    
 })
 
 module.exports = router
