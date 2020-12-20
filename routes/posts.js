@@ -11,8 +11,12 @@ router.get("/", (req, res) => {
 
 
 router.get("/new", (req, res) => {
-    
-    res.render('site/addpost')
+    if (req.session.userId){
+        return res.render('site/addpost')
+
+    }else {
+        res.redirect("/users/login")
+    }
 })
 
 router.get("/:id", (req, res) => {

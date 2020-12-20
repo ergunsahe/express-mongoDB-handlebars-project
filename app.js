@@ -3,7 +3,7 @@ const exphbs  = require('express-handlebars')
 const path = require("path")
 const app = express()
 const port = 3000
-// const moment = require("moment")
+const expressSession = require("express-session")
 const hostname = "127.0.0.1"
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
@@ -12,6 +12,7 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access')
 const generateDate = require("./helpers/generateDate").generateDate
+const connectMongo = require("connect-mongo")
 
 
 mongoose.connect('mongodb://127.0.0.1/nodeblogDB', {
@@ -20,6 +21,15 @@ mongoose.connect('mongodb://127.0.0.1/nodeblogDB', {
   useFindAndModify: false,
   useCreateIndex: true
 });
+
+const mongoStore = connectMongo(expressSession)
+app.use(expressSession({
+  secret: "testtest",
+  resave: false,
+  saveUninitialized: true,
+  store: new mongoStore({mongooseConnection: mongoose.connection})
+}))
+
 
 app.use(fileUpload())
 
@@ -43,6 +53,7 @@ app.use(bodyParser.json())
 const main = require("./routes/main")
 const posts = require("./routes/posts")
 const users = require("./routes/users")
+const { connect } = require("./routes/main")
 
 app.use("/", main)
 app.use("/posts", posts)
