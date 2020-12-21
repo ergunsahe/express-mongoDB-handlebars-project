@@ -11,8 +11,8 @@ const fileUpload = require("express-fileupload")
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
-const generateDate = require("./helpers/generateDate").generateDate
-const limit = require("./helpers/limit").limit
+const {generateDate, limit, truncate} = require("./helpers/hbs")
+
 const connectMongo = require("connect-mongo")
 const methodOverride = require("method-override")
 
@@ -32,12 +32,7 @@ app.use(expressSession({
   store: new mongoStore({ mongooseConnection: mongoose.connection })
 }))
 
-// Flash - message middleware
-app.use((req, res, next) => {
-  res.locals.sessionFlash = req.session.sessionFlash
-  delete req.session.sessionFlash
-  next()
-})
+
 
 
 app.use(fileUpload())
@@ -52,7 +47,8 @@ app.engine("handlebars", expressHandlebars({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
   helpers: {
     generateDate,
-    limit
+    limit,
+    truncate
   }
 }), exphbs());
 app.set("view engine", "handlebars");
@@ -77,6 +73,13 @@ app.use((req, res, next) => {
   }
   next()
 
+})
+
+// Flash - message middleware
+app.use((req, res, next) => {
+  res.locals.sessionFlash = req.session.sessionFlash
+  delete req.session.sessionFlash
+  next()
 })
 
 const main = require("./routes/main")
