@@ -13,6 +13,7 @@ const expressHandlebars = require('express-handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const generateDate = require("./helpers/generateDate").generateDate
 const connectMongo = require("connect-mongo")
+const methodOverride = require("method-override")
 
 
 mongoose.connect('mongodb://127.0.0.1/nodeblogDB', {
@@ -41,6 +42,8 @@ app.use((req, res, next) => {
 app.use(fileUpload())
 
 app.use(express.static("public"))
+
+app.use(methodOverride("_method") )
 
 
 
