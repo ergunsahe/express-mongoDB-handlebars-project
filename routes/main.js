@@ -1,5 +1,7 @@
 const express = require("express")
 const Post = require("../models/Post")
+const Category = require("../models/Category")
+const User = require("../models/User")
 
 const router = express.Router()
 router.get("/", (req, res) => {
@@ -11,8 +13,11 @@ router.get("/", (req, res) => {
 
 
 router.get("/blog", (req, res) => {
-    Post.find({}).sort({$natural:-1}).then(posts => {
-        res.render('site/blog', {posts})
+    Post.find({}).populate({path: "author", model: User}).sort({$natural:-1}).then(posts => {
+        Category.find({}).sort({$natural:-1}).then(categories =>{
+            res.render('site/blog', {posts, categories})
+
+        })
         
 
     }).catch(err =>{
