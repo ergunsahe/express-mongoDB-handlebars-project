@@ -12,6 +12,7 @@ const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 const generateDate = require("./helpers/generateDate").generateDate
+const limit = require("./helpers/limit").limit
 const connectMongo = require("connect-mongo")
 const methodOverride = require("method-override")
 
@@ -45,12 +46,13 @@ app.use(express.static("public"))
 
 app.use(methodOverride("_method") )
 
-
+// handlebars helper
 
 app.engine("handlebars", expressHandlebars({
   handlebars: allowInsecurePrototypeAccess(Handlebars),
   helpers: {
-    generateDate
+    generateDate,
+    limit
   }
 }), exphbs());
 app.set("view engine", "handlebars");
