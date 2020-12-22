@@ -11,7 +11,7 @@ const fileUpload = require("express-fileupload")
 const Handlebars = require('handlebars')
 const expressHandlebars = require('express-handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
-const {generateDate, limit, truncate} = require("./helpers/hbs")
+const {generateDate, limit, truncate, paginate} = require("./helpers/hbs")
 
 const connectMongo = require("connect-mongo")
 const methodOverride = require("method-override")
@@ -48,7 +48,8 @@ app.engine("handlebars", expressHandlebars({
   helpers: {
     generateDate,
     limit,
-    truncate
+    truncate,
+    paginate
   }
 }), exphbs());
 app.set("view engine", "handlebars");
